@@ -15,20 +15,25 @@ export const blogRouter = new Hono<{
 
 // Middleware
 blogRouter.use('/*', async (c, next) => {
-    const jwt = c.req.header('authorization');
-    if (!jwt) {
+    try {
+        const jwt = c.req.header('authorization');
+        if (!jwt) {
+            c.status(403);
+            return c.json({ error: "Unauthorized" })
+        }
+        const token = jwt.split(" ")[1];
+        const payload = await verify(token, c.env.JWT_SECRET);
+        if (!payload) {
+            c.status(401);
+            // next()
+            return c.json({ error: "Unauthorized, you are not logged in" });
+        }
+        c.set('userId', payload.id);
+        await next()
+    } catch (error) {
         c.status(403);
-        return c.json({ error: "Unauthorized" })
+        return c.json({message:"You are not logged in"})
     }
-    const token = jwt.split(" ")[1];
-    const payload = await verify(token, c.env.JWT_SECRET);
-    if (!payload) {
-        c.status(401);
-        // next()
-        return c.json({ error: "Unauthorized, you are not logged in" });
-    }
-    c.set('userId', payload.id);
-    await next()
 })
 
 // bloog
@@ -109,10 +114,15 @@ blogRouter.get("/:id", async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
-    const post = await prisma.post.findUnique({
-        where: {
-            id
-        }
-    })
-    return c.json(post)
+try {
+        const post = await prisma.post.findUnique({
+            where: {
+                id
+            }
+        })
+        return c.json(post)
+} catch (error) {
+    c.status(403)
+    return c.json({message:"You are not logged in"})
+}
 })
