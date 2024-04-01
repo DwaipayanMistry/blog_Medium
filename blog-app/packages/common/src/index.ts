@@ -17,7 +17,6 @@ export const signinInput = z.object({
 // type inference of signin
 export type SigninInput = z.infer<typeof signinInput>;
 
-
 // ~~~~~~~~~~~~~~~~~~~ Blog ~~~~~~~~~~~~
 // create blog
 export const createBlogInput = z.object({
