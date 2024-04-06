@@ -110,8 +110,23 @@ blogRouter.get("/bulk", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
   try {
-    const posts = await prisma.post.findMany({});
-    return c.json(posts);
+    const posts = await prisma.post.findMany({
+      where: {
+        published: true,
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+    return c.json({ posts });
   } catch (error) {
     return c.json({
       message: "Error while fetching posts",
@@ -130,8 +145,18 @@ blogRouter.get("/:id", async (c) => {
       where: {
         id,
       },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
-    return c.json(post);
+    return c.json({ post });
   } catch (error) {
     c.status(403);
     return c.json({ message: "You are not logged in" });

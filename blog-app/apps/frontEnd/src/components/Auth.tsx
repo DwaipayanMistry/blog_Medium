@@ -4,6 +4,7 @@ import { useState } from "react"
 import { SignupInput } from "@repo/common"
 import Button from "./Button"
 import axios from "axios"
+import { BACKEND_URL } from "../config"
 
 const Auth = ({ type }: { type: "signin" | "signup" }) => {
     const [userDetails, setuserDetails] = useState<SignupInput>({
@@ -16,7 +17,7 @@ const Auth = ({ type }: { type: "signin" | "signup" }) => {
     async function sendRequest() {
 
         try {
-            const response = await axios.post(`http://127.0.0.1:8787/api/v1/user/${(type === "signup" ? "signup" : "signin")}`, userDetails);
+            const response = await axios.post(`${BACKEND_URL}${(type === "signup" ? "signup" : "signin")}`, userDetails);
             localStorage.setItem("token", "Bearer " + response.data.jwt)
             navigate("/blogs")
         } catch (error) {
