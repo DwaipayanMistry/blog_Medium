@@ -105,6 +105,7 @@ blogRouter.put("/", async (c) => {
 
 // get add bulk data
 // TODO: Add pagination
+// TODO: Only send 200 character to the client
 blogRouter.get("/bulk", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,

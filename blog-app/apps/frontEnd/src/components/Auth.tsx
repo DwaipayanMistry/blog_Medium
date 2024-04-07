@@ -17,7 +17,7 @@ const Auth = ({ type }: { type: "signin" | "signup" }) => {
     async function sendRequest() {
 
         try {
-            const response = await axios.post(`${BACKEND_URL}${(type === "signup" ? "signup" : "signin")}`, userDetails);
+            const response = await axios.post(`${BACKEND_URL}api/v1/user/${(type === "signup" ? "signup" : "signin")}`, userDetails);
             localStorage.setItem("token", "Bearer " + response.data.jwt)
             navigate("/blogs")
         } catch (error) {

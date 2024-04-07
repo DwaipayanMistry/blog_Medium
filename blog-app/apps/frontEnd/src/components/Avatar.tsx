@@ -1,4 +1,4 @@
-const Avatar = ({ name, sizes }: { name: string, sizes: string}) => {
+const Avatar = ({ name, sizes }: { name: string, sizes: string }) => {
     return (
         <div className=" flex justify-start">
             <div id="Avatar" className={`relative inline-flex items-center justify-center ${sizes}  overflow-hidden
