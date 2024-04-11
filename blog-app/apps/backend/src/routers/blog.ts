@@ -57,6 +57,9 @@ blogRouter.post("/", async (c) => {
         published: body.published,
         authorId: userId,
       },
+      select:{
+        id:true
+      },
     });
     return c.json({
       postId: blog.id,

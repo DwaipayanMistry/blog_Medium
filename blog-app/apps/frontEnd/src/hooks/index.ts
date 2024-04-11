@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BACKEND_URL } from "../config";
 
 export interface Blog {
@@ -26,10 +26,10 @@ export const useBlog = ({ id }: { id: string }) => {
     }
     getBlog();
   }, []);
-  return{
+  return {
     loading,
     blog,
-  }
+  };
 };
 // TODO: Add caching to useBlogs
 export const useBlogs = () => {
@@ -53,3 +53,5 @@ export const useBlogs = () => {
     blogs,
   };
 };
+
+// -----------------------------------------------------

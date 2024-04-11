@@ -13,7 +13,7 @@ interface BlogCardProps {
 const BlogCard = ({ id, authorName, title, content, publishedDate }: BlogCardProps) => {
     return (
         <Link to={`/blog/${id}`}>
-            <div className=" border-b-2 w-full">
+            <div className=" border-b-2 mt-2 w-full">
                 <div className="flex justify-start gap-x-2 ml-1" >
                     {/* avatar */}
                     <Avatar sizes="h-6 w-6" name="Dwa"></Avatar>
@@ -22,21 +22,20 @@ const BlogCard = ({ id, authorName, title, content, publishedDate }: BlogCardPro
                         <span className="align-middle  font-semibold">{authorName}</span>
                         {/* <span className=" text-slate-500"> .</span> */}
                         <Dot></Dot>
-                        <span className="align-middle font-thin text-slate-300">{publishedDate}</span>
+                        <span className="align-middle font-thin text-slate-400">{publishedDate}</span>
                     </div>
 
                 </div>
                 {/* Blog input */}
                 <div className="pt-2">
                     <div className="font-bold text-2xl">{title}</div>
-                    <div className="text-slate-400 text-base font-thin">{content.length > 100 ? content.slice(100) + "..." : content}</div>
-                    <div><Read></Read></div>
+                    <div className="text-slate-400 text-base font-thin break-words">
+                        {content.length > 100 ? content.slice(0, 100) + "..." : content}
+                    </div>
+                    <div><ReadTime></ReadTime></div>
                 </div>
-
             </div>
         </Link>
-
-
     )
     function Dot() {
         return (
@@ -45,7 +44,7 @@ const BlogCard = ({ id, authorName, title, content, publishedDate }: BlogCardPro
             </div>
         )
     }
-    function Read() {
+    function ReadTime() {
         const readTime: number = Math.ceil(content.length / 500)
         const min = readTime > 1 ? "minuets" : "minuit"
         return (
