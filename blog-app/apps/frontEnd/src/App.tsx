@@ -1,16 +1,19 @@
 import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import { Signup } from './pages/Signup'
 import { Signin } from './pages/Signin'
 import { Blog } from './pages/Blog'
 import Blogs from './pages/Blogs'
 import { Create } from './pages/Create'
+import { HomePage } from './pages/HomePage'
 
 function App() {
+
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<HomePage></HomePage>}></Route>
           <Route path='/signup' element={<Signup></Signup>}></Route>
           <Route path='/signin' element={<Signin></Signin>}></Route>
           <Route path='/blog/:id' element={<Blog></Blog>}></Route>

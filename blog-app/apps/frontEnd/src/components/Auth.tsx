@@ -51,7 +51,7 @@ const Auth = ({ type }: { type: "signin" | "signup" }) => {
                             password: e.target.value
                         }))
                     }}></InputBox>
-                    <div >
+                    <div className="mt-5" >
                         <Button typeofButton={type === "signup" ? "sign up" : "sign in"} onClick={sendRequest} ></Button>
                     </div>
                 </div>

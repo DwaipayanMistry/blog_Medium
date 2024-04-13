@@ -1,6 +1,6 @@
 import AppBar from "../components/AppBar"
 import BlogCard from "../components/BlogCard"
-import { BlogsSkeleton, BlogSkeleton } from "../components/Skeleton";
+import { BlogsSkeleton } from "../components/Skeleton";
 import { useBlogs } from "../hooks"
 
 const Blogs = () => {
